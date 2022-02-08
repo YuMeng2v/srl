@@ -1,0 +1,35 @@
+.home-main{
+    background-image: url('../../ultils/aboutHKU.jpg');
+    background-size: cover;
+    height:100%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+.login-part{
+    height:200px;
+    width: 1000px;
+    position: relative;
+    top:50%;
+    display: flex;
+
+}
+.welcome{
+    background-color: rgb(177, 241, 177,0.7);
+    height:500px;
+    width:500px;
+}
+.login{
+    background-color: white;
+    height:500px;
+    width:500px;
+}
+.head{
+    font-size: 20px;
+}
+Form {
+    padding-top: 40%;
+}
+Form.item{
+    padding-top: 10px;
+}

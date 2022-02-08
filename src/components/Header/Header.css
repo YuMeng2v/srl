@@ -1,0 +1,7 @@
+.ft-main{
+    background-color: rgba(151, 216, 54, 0.7);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px 0 10px;
+    font-size:20px;
+}

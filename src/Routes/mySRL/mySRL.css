@@ -9,3 +9,9 @@
     justify-content: center;
     flex-grow: 1;
 }
+.ms-left{
+    flex-grow:2;
+}
+.ms-right{
+    flex-grow:1;
+}

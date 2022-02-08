@@ -24,13 +24,29 @@ export default class mySRL extends Component {
           <div className='ms-content'>
             <div className='ms-left'>
               <div className='ms-left-head'>
-
+                  {/* 头部 */}
+                  <div>123</div>
               </div>
-              <div className='ms-left-table'></div>
+              <div className='ms-left-table'>
+                  {/* 中间表格 */}
+                  <table>
+                    <tr>
+                      <th>Name</th>
+                      <th>Create Time</th>
+                      <th>Save Time</th>
+                      <th>Progress</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                  </table>
+              </div>
             </div>
             <div className='ms-right'>
               <div className='ms-right-nengli'>
-
+                  {/* 雷达图 */}
+              </div>
+              <div className='ms-right-advice'>
+                  {/* SRL学习能力建议 */}
               </div>
             </div>
           </div>

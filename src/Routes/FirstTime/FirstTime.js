@@ -14,6 +14,15 @@ export default class FirstTime extends Component {
     }
   }
   componentDidMount(){
+    //验证session是否已经登陆
+    let namei,UIDi;
+    try{
+        namei = sessionStorage['name'];
+        UIDi = sessionStorage['UID'];
+    }
+    catch{
+      this.props.history.push('/');
+    }
     //Ajax
     // 更新question 和 menu
   }

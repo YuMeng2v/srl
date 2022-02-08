@@ -6,11 +6,23 @@ export default class Header extends Component {
         super(props)
         this.state = {name:'王大力',UID:'92231223'}
     }
+    componentDidMount(){
+        let namei,UIDi;
+        try{
+          namei = sessionStorage['name'];
+          UIDi = sessionStorage['UID'];
+          this.setState({name:namei,UID:UIDi})
+      }
+        catch{
+            console.log('here');
+          this.props.history.push('/');
+        }
+    }
     render() {
         if(this.props.ft){
             return (
                 <div className='ft-main'>
-                    <div class="ft-left">
+                    <div className="ft-left">
                         HKU-SRL
                     </div>
                     <div className="ft-center">
@@ -32,7 +44,7 @@ export default class Header extends Component {
         }else{
         return(
             <div className='ft-main'>
-                <div class="ft-left">
+                <div className="ft-left">
                     HKU-SRL
                 </div>
                 <div className="ft-right">

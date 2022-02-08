@@ -2,15 +2,46 @@ import React, { Component } from 'react';
 import './Home.css'
 import { Form, Input, Button, Checkbox } from 'antd';
 import {Link} from 'react-router-dom'
-
 const onFinish = (values) => {
     console.log('Success:', values);
 };
-
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
 export default class Home extends Component {
+    constructor(props){
+        super(props);
+        this.state = {ft:true,name:undefined,checked:false,finished:false}
+    }
+    handleClick = ()=>{
+        //1. 判断是否check
+            if(this.state.checked){
+                //2. 发送ajax请求，判断账号密码是否正确
+                if(true){
+                    //正确，将账户信息存储在session中
+                    sessionStorage.setItem('name','王大力')
+                    sessionStorage.setItem('UID','92231223')
+                    // 3. 判断是否完成问卷
+                    if(this.state.finished){
+                        //前往'./ft'
+                        this.props.history.push('/ft')
+                    }
+                    else{
+                        this.props.history.push('/mSRL')
+                        //前往'./mySRL'
+                    }
+                }
+                else{
+                    alert('账号密码错误')
+                }
+            }
+            else{
+                alert('please check the contract')
+            }
+    }
+    onCheck = ()=>{
+        this.setState({checked:true});
+    }
   render() {
     return <div className='home-main'>
         <div className='login-part'>
@@ -40,28 +71,15 @@ export default class Home extends Component {
                     autoComplete="off"
                     >
                     <Form.Item
-
                         name="UID"
                         rules={[
                         {
                             required: true,
-                            message: 'please input UID',
+                            message: 'please input UID!',
                         },
                         ]}
                     >
                         <Input placeholder='please input UID'/>
-                    </Form.Item>
-
-                    <Form.Item
-                        name="name"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your name',
-                        },
-                        ]}
-                    >
-                        <Input.name placeholder='please input name'/>
                     </Form.Item>
                     <Form.Item
                         name="name"
@@ -69,6 +87,17 @@ export default class Home extends Component {
                         {
                             required: true,
                             message: 'Please input your name!',
+                        },
+                        ]}
+                    >
+                        <Input.name placeholder='please input name'/>
+                    </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
                         },
                         ]}
                     >
@@ -82,8 +111,8 @@ export default class Home extends Component {
                         span: 16,
                         }}
                     >
-                        <Checkbox>I have read  the &nbsp;
-                            <a href=''>contract</a>
+                        <Checkbox onChange={this.onCheck}>I have read  the &nbsp;
+                            <a href='https://docs.google.com/document/d/1oezoLjyqZlttaF8o7DQH-ChQto7K7DUAjFeCeofkSjo/edit?usp=sharing'>contract</a>
                         </Checkbox>
                     </Form.Item>
 
@@ -93,11 +122,9 @@ export default class Home extends Component {
                         span: 16,
                         }}
                     >
-                        <Link to="/ft">
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" onClick={this.handleClick}>
                             submit
                         </Button>
-                        </Link>
                     </Form.Item>
                     </Form>
                 </div>

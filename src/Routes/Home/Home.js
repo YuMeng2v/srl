@@ -17,6 +17,7 @@ export default class Home extends Component {
         //1. 判断是否check
             if(this.state.checked){
                 //2. 发送ajax请求，判断账号密码是否正确
+                
                 if(true){
                     //正确，将账户信息存储在session中
                     sessionStorage.setItem('name','王大力')

@@ -18,7 +18,7 @@ export default class RouterWrap extends Component{
                         <Route path="/eSRL" component={EditSRL} exact></Route>
                         <Route path="/mSRL" component={mySRL} exact></Route>
                         <Route path="/nSRL" component={newSRL} exact></Route>
-                        <Route path="/RSRL" component={ReportSRL} exact></Route>
+                        <Route path="/rSRL" component={ReportSRL} exact></Route>
                     </Route>
                 </BrowserRouter>
             </div>

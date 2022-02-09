@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
+import Menu from '../../components/Menu/Menu'
 import "./FirstTime.css"
 import {Link} from 'react-router-dom'
 
@@ -45,19 +46,20 @@ export default class FirstTime extends Component {
             </div>
             </div>
             <div className="ft-menu">
-              <div class="dropdown">
-                  <button class="dropbtn">下拉菜单</button>
-                  <div class="dropdown-content">
+              {/* <div className="dropdown">
+                  <button className="dropbtn">下拉菜单</button>
+                  <div className="dropdown-content">
                       {
                         this.state.menu.map(x=>{
                           return <a>{x}</a>
                         })
                       }
                   </div>
-                </div>
-                <div class="dropdown">
-                  <button class="dropbtn">下拉菜单</button>
-                  <div class="dropdown-content">
+                </div> */}
+                <Menu menud={this.state.menu}/>
+                <div className="dropdown">
+                  <button className="dropbtn">下拉菜单</button>
+                  <div className="dropdown-content">
                       {
                         this.state.menu.map(x=>{
                           return <a>{x}</a>
@@ -66,7 +68,6 @@ export default class FirstTime extends Component {
                   </div>
                 </div>
             </div>
-
         </div>
         <Footer />
     </div>

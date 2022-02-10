@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css'
+import axios from 'axios'
 import { Form, Input, Button, Checkbox } from 'antd';
 import {Link} from 'react-router-dom'
 const onFinish = (values) => {
@@ -17,6 +18,18 @@ export default class Home extends Component {
         //1. 判断是否check
             if(this.state.checked){
                 //2. 发送ajax请求，判断账号密码是否正确
+                axios({
+                    method:'post',
+                    url:'https://api.quicboar.boatonland.com/user/login.php',
+                    data:{
+                        user_uid:1,
+                        user_name:2,
+                        user_password:123,
+                    }
+                }).then(response=>{
+                    console.log(response);
+                })
+                //被同源限制了
                 
                 if(true){
                     //正确，将账户信息存储在session中
@@ -116,7 +129,6 @@ export default class Home extends Component {
                             <a href='https://docs.google.com/document/d/1oezoLjyqZlttaF8o7DQH-ChQto7K7DUAjFeCeofkSjo/edit?usp=sharing'>contract</a>
                         </Checkbox>
                     </Form.Item>
-
                     <Form.Item
                         wrapperCol={{
                         offset: 8,

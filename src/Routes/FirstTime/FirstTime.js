@@ -9,8 +9,7 @@ export default class FirstTime extends Component {
   constructor(props){
     super(props);
     this.state = {
-      questions:["雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷"
-      ,"雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷","雷"],
+      questions:['Loading'],
       menu:[1,2,3,4,5]
     }
   }
@@ -26,6 +25,13 @@ export default class FirstTime extends Component {
     }
     //Ajax
     // 更新question 和 menu
+    fetch(`/statics/question.txt`).then(response=>{
+      return response.text();
+      //this.setState({questions:response.text()});
+  }).then(value=>{
+    console.log(value.split('\n'));
+    this.setState({questions:value.split('\n')});
+  })
   }
   render() {
     return (
@@ -36,26 +42,16 @@ export default class FirstTime extends Component {
         <div className='ft-Content'>
             <div className="ft-question">{
                 this.state.questions.map((x,key)=>{
-                  return <div>Q{key+1}:{x}</div>
+                  return <div>Q{key+1}:&nbsp;{x}</div>
                 })
               }
-            <div className="ft-submit">
-                <Link to="/mSRL">
-                  <button>SUBMIT</button>
-                </Link>
-            </div>
+              <div className="ft-submit">
+                  <Link to="/mSRL">
+                    <button>SUBMIT</button>
+                  </Link>
+              </div>
             </div>
             <div className="ft-menu">
-              {/* <div className="dropdown">
-                  <button className="dropbtn">下拉菜单</button>
-                  <div className="dropdown-content">
-                      {
-                        this.state.menu.map(x=>{
-                          return <a>{x}</a>
-                        })
-                      }
-                  </div>
-                </div> */}
                 <Menu menud={this.state.menu}/>
                 <div className="dropdown">
                   <button className="dropbtn">下拉菜单</button>

@@ -6,9 +6,14 @@
 }
 .ft-question{
     padding: 10px;
+    text-align: left;
 }
 .ft-menu{
     padding: 10px;
+}
+.ft-submit{
+    padding-top: 20px;
+    text-align: center;
 }
 .first-main{
     display: flex;

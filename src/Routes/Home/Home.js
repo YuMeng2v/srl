@@ -3,6 +3,7 @@ import './Home.css'
 import axios from 'axios'
 import { Form, Input, Button, Checkbox } from 'antd';
 import {Link} from 'react-router-dom'
+import { Helmet } from 'react-helmet';
 const onFinish = (values) => {
     console.log('Success:', values);
 };
@@ -15,22 +16,27 @@ export default class Home extends Component {
         this.state = {ft:true,name:undefined,checked:false,finished:false}
     }
     handleClick = ()=>{
+        var url='https://api.quicboar.boatonland.com/user/login.php'
+        
         //1. 判断是否check
             if(this.state.checked){
                 //2. 发送ajax请求，判断账号密码是否正确
-                axios({
-                    method:'post',
-                    url:'https://api.quicboar.boatonland.com/user/login.php',
-                    data:{
-                        user_uid:1,
-                        user_name:2,
-                        user_password:123,
-                    }
+                //基于ajax的请求，基于JS的原生fetch，都不能请求到资源
+                fetch(url,{
+                    method:'POST',
+                    headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+                    body:'user_uid=1&user_name=user1&user_password=123456',
                 }).then(response=>{
-                    console.log(response);
+                    console.log(response.text());
                 })
                 //被同源限制了
-                
+                // axios({
+                //     method: 'post',
+                //     url:url,
+                //     data: data
+                // }).then(response=>{
+                //     console.log(response)
+                // });
                 if(true){
                     //正确，将账户信息存储在session中
                     sessionStorage.setItem('name','王大力')

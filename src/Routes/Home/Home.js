@@ -31,8 +31,10 @@ export default class Home extends Component {
                         //输入为空
                         alert('empty input')
                     }else{
-                        sessionStorage.setItem('name',this.state.user_name)
-                        sessionStorage.setItem('UID',this.state.user_uid)
+                        sessionStorage.setItem('user_name',this.state.user_name)
+                        sessionStorage.setItem('user_uid',this.state.user_uid)
+                        console.log(document.cookie);
+                        sessionStorage.setItem('cookie',document.cookie);
                         // 3. 判断是否完成问卷
                         if(this.state.finished){
                             //前往'./ft'
@@ -87,7 +89,6 @@ export default class Home extends Component {
                     <Button type="primary" htmlType="submit" onClick={this.handleClick}>
                         submit
                     </Button>
-
                 </div>
         </div>
     </div>;

@@ -9,6 +9,7 @@ export default class newSRL extends Component {
     this.state = {menu:['1','2']}
   }
   componentDidMount(){
+    //1.查看浏览器有没有存储session
     let namei=sessionStorage['name'],UIDi=sessionStorage['UID'];
     if(namei!=undefined&&UIDi!=undefined){
       this.setState({name:namei,UID:UIDi});
@@ -16,9 +17,16 @@ export default class newSRL extends Component {
     else{
       this.props.history.push('/');
     }
+    //2. 异步请求更新menu
   }
   handleclick = ()=>{
-    //
+    //向数据库发布异步请求添加
+  }
+  handleNameChange = (e)=>{
+    this.setState({input_name:e.target.value});
+  }
+  handleLearnChange=(e)=>{
+    this.setState({input_target:e.target.value});
   }
   render() {
     return <div className='nsrl-main'>
@@ -29,12 +37,12 @@ export default class newSRL extends Component {
             </div>
             <div>
               Name
-              <input></input>
+              <input onChange={this.handleNameChange.bind(this)}></input>
             </div>
             <div>
                 Please indicate what do you want to learn for this week?
                 <br/>
-                <input></input>
+                <input onChange={this.handleLearnChange.bind(this)}></input>
             </div>
             <div>
               Select the activities that can help you achieve your goals

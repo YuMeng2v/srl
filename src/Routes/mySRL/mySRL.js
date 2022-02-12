@@ -6,30 +6,33 @@ import {Link} from 'react-router-dom'
 
 export default class mySRL extends Component {
   constructor(props){
-    super(props)
+    super(props);
+    this.state = {name:null,UID:null,tableset:{}};
   }
-  state = {name:null,UID:null};
   componentDidMount(){
-    let namei=sessionStorage['name'],UIDi=sessionStorage['UID'];
+    let namei=sessionStorage['user_name'],UIDi=sessionStorage['user_uid'];
+    console.log('UIDi',UIDi,'username',namei);
     if(namei!=undefined&&UIDi!=undefined){
+      console.log('here')
       this.setState({name:namei,UID:UIDi});
+      var url = 'https://api.quicboar.boatonland.com/srldata/get.php';
+      fetch(url,{
+        method:'POST',
+        headers:{"Content-type":"application/x-www-form-urlcoded;charset=UTF-8"},
+        body:`user_uid=1&srl_id=1&x=6`,
+        //credentials: 'include'
+      }).then(response=>{
+        return response.text();
+      }).then(data=>{
+        data = JSON.parse(data);
+        console.log(data.code);
+      })
     }
     else{
       this.props.history.push('/');
     }
     //
-    var url = 'https://api.quicboar.boatonland.com/srldata/get.php';
-    fetch(url,{
-      method:'POST',
-      headers:{"Content-type":"application/x-www-form-urlcoded;charset=UTF-8"},
-      body:`user_uid=${this.state.UID}`,
-      credentials: 'include'
-    }).then(response=>{
-      return response.text();
-    }).then(data=>{
-      data = JSON.parse(data);
-      console.log(data.code);
-    })
+
   }
   render() {
     return (

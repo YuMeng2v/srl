@@ -8,25 +8,44 @@ export default class newSRL extends Component {
     super(props);
     this.state = {menu:['1','2']}
   }
+  /*
+  states:
+  menu: 下拉菜单
+  name: 
+  UID:
+  input_name: 输入name
+  input_target: 这周想要学啥
+  act: 这周想要学啥
+  hour: 这周想要学多久
+  */
   componentDidMount(){
     //1.查看浏览器有没有存储session
-    let namei=sessionStorage['name'],UIDi=sessionStorage['UID'];
+    let namei=sessionStorage['user_name'],UIDi=sessionStorage['user_uid'];
     if(namei!=undefined&&UIDi!=undefined){
       this.setState({name:namei,UID:UIDi});
     }
     else{
       this.props.history.push('/');
     }
-    //2. 异步请求更新menu
   }
   handleclick = ()=>{
     //向数据库发布异步请求添加
+    var url = 
+    fetch()
   }
   handleNameChange = (e)=>{
     this.setState({input_name:e.target.value});
   }
   handleLearnChange=(e)=>{
     this.setState({input_target:e.target.value});
+  }
+  handleMenu1=(e)=>{
+    this.setState({act:e.target.text})
+    //console.log(e.target.text);
+  }
+  handleMenu2=(e)=>{
+    this.setState({hours:e.target.text});
+    //console.log(e.target.text)
   }
   render() {
     return <div className='nsrl-main'>
@@ -46,14 +65,14 @@ export default class newSRL extends Component {
             </div>
             <div>
               Select the activities that can help you achieve your goals
-              <div className='nsrl-dropdown'>
-                <Menu menud={this.state.menu}/>
+              <div className='nsrl-dropdown'onClick={this.handleMenu1}>
+                <Menu menud={this.state.menu} />
               </div>
             </div>
             <div>
               How much work do you plan to accomplish?
-              <div>
-                <Menu menud={this.state.menu}/>
+              <div onClick={this.handleMenu2}>
+                <Menu menud={this.state.menu} />
               </div>
             </div>
             <div>

@@ -7,25 +7,28 @@ import {Link} from 'react-router-dom'
 export default class mySRL extends Component {
   constructor(props){
     super(props);
-    this.state = {name:null,UID:null,tableset:{}};
+    this.state = {name:null,UID:null,tableset:{1:1}};
+  }
+  handleDelete=()=>{
+    //发送请求在数据库中删除元素
+    
   }
   componentDidMount(){
     let namei=sessionStorage['user_name'],UIDi=sessionStorage['user_uid'];
     console.log('UIDi',UIDi,'username',namei);
     if(namei!=undefined&&UIDi!=undefined){
-      console.log('here')
       this.setState({name:namei,UID:UIDi});
       var url = 'https://api.quicboar.boatonland.com/srldata/get.php';
       fetch(url,{
         method:'POST',
-        headers:{"Content-type":"application/x-www-form-urlcoded;charset=UTF-8"},
-        body:`user_uid=1&srl_id=1&x=6`,
-        //credentials: 'include'
+        headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+        body:`srl_id=1&user_uid=1`,
       }).then(response=>{
         return response.text();
       }).then(data=>{
         data = JSON.parse(data);
-        console.log(data.code);
+        this.setState({tableset:data.srl_data});
+        console.log('1:',data.srl_data);
       })
     }
     else{
@@ -61,13 +64,19 @@ export default class mySRL extends Component {
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
+                      {
+                            Object.keys(this.state.tableset).map(tab1=>{                                 
+                            return <td>{this.state.tableset[tab1]}</td>}                    
+                        )                        
+                      } 
+                      <button onClick={this.handleDelete}>Delete</button>                   
                     <tr>
                       <td>Week1 wangdali111</td>
                       <td>29-1-2022</td>
                       <td>29-1-2022</td>
                       <td>100%</td>
                       <td>Edit</td>
-                      <td>Delete</td>
+                      <button onClick={this.handleDelete}>Delete</button>
                     </tr>
                   </table>
               </div>

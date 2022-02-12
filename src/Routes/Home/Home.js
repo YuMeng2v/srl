@@ -56,15 +56,15 @@ export default class Home extends Component {
         this.setState({checked:true});
     }
     handleNameChange=(a)=>{
-        console.log(a.target.value);
+        //console.log(a.target.value);
         this.setState({user_name:a.target.value})
     }
     handleUIDChange=(a)=>{
-        console.log(a.target.value);
+        //console.log(a.target.value);
         this.setState({user_uid:a.target.value});
     }
     handlePwdChange=(a)=>{
-        console.log(a.target.value);
+        //console.log(a.target.value);
         this.setState({user_password:a.target.value});
     }
   render() {

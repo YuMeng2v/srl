@@ -9,13 +9,13 @@ export default class Header extends Component {
     componentDidMount(){
         let namei,UIDi;
         try{
-          namei = sessionStorage['name'];
-          UIDi = sessionStorage['UID'];
+          namei = sessionStorage['user_name'];
+          UIDi = sessionStorage['user_uid'];
           this.setState({name:namei,UID:UIDi})
       }
         catch{
             console.log('here');
-          this.props.history.push('/');
+            this.props.history.push('/');
         }
     }
     render() {

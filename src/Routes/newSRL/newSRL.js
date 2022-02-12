@@ -6,7 +6,7 @@ import './newSRL.css'
 export default class newSRL extends Component {
   constructor(props){
     super(props);
-    this.state = {menu:['1','2']}
+    this.state = {menu:['1','2'],name:undefined,UID:undefined,input_name:undefined,input_target:undefined,act:undefined,hour:undefined}
   }
   /*
   states:
@@ -30,8 +30,14 @@ export default class newSRL extends Component {
   }
   handleclick = ()=>{
     //向数据库发布异步请求添加
-    var url = 
-    fetch()
+    var url = 'https://api.quicboar.boatonland.com/srldata/create.php'
+    fetch(url,{
+      method:'POST',
+      headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
+      body: `user_uid=${this.state.UID}&srl_id=1&srl_report_data=${this.state.input_target}&srl_goal=${this.state.hour}`
+    }).then(response=>{
+      return response.text()
+    }).then(data=>console.log(data));
   }
   handleNameChange = (e)=>{
     this.setState({input_name:e.target.value});

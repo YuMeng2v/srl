@@ -8,6 +8,7 @@ export default class mySRL extends Component {
   constructor(props){
     super(props)
   }
+  state = {name:null,UID:null};
   componentDidMount(){
     let namei=sessionStorage['name'],UIDi=sessionStorage['UID'];
     if(namei!=undefined&&UIDi!=undefined){
@@ -16,6 +17,19 @@ export default class mySRL extends Component {
     else{
       this.props.history.push('/');
     }
+    //
+    var url = 'https://api.quicboar.boatonland.com/srldata/get.php';
+    fetch(url,{
+      method:'POST',
+      headers:{"Content-type":"application/x-www-form-urlcoded;charset=UTF-8"},
+      body:`user_uid=${this.state.UID}`,
+      credentials: 'include'
+    }).then(response=>{
+      return response.text();
+    }).then(data=>{
+      data = JSON.parse(data);
+      console.log(data.code);
+    })
   }
   render() {
     return (

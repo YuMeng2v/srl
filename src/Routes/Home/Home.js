@@ -22,6 +22,8 @@ export default class Home extends Component {
                 }).then(response=>{
                     return response.text();
                 }).then(data=>{
+                    data = JSON.parse(data);
+                    console.log(data.code);
                     if(data.code==201){
                         alert(data.msg)
                     }

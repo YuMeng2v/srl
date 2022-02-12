@@ -4,16 +4,10 @@ import axios from 'axios'
 import { Form, Input, Button, Checkbox } from 'antd';
 import {Link} from 'react-router-dom'
 import { Helmet } from 'react-helmet';
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
 export default class Home extends Component {
     constructor(props){
         super(props);
-        this.state = {ft:true,name:undefined,checked:false,finished:false}
+        this.state = {ft:true,name:undefined,checked:false,finished:false,user_uid:1,user_name:1,user_password:1}
     }
     handleClick = ()=>{
         var url='https://api.quicboar.boatonland.com/user/login.php'
@@ -21,39 +15,34 @@ export default class Home extends Component {
         //1. 判断是否check
             if(this.state.checked){
                 //2. 发送ajax请求，判断账号密码是否正确
-                //基于ajax的请求，基于JS的原生fetch，都不能请求到资源
                 fetch(url,{
                     method:'POST',
                     headers:{'Content-type':'application/x-www-form-urlencoded; charset=UTF-8'},
-                    body:'user_uid=1&user_name=user1&user_password=123456',
+                    body:`user_uid=${this.state.user_uid}&user_name=${this.state.user_name}&user_password=${this.state.user_password}`,
                 }).then(response=>{
-                    console.log(response.text());
-                })
-                //被同源限制了
-                // axios({
-                //     method: 'post',
-                //     url:url,
-                //     data: data
-                // }).then(response=>{
-                //     console.log(response)
-                // });
-                if(true){
-                    //正确，将账户信息存储在session中
-                    sessionStorage.setItem('name','王大力')
-                    sessionStorage.setItem('UID','92231223')
-                    // 3. 判断是否完成问卷
-                    if(this.state.finished){
-                        //前往'./ft'
-                        this.props.history.push('/ft')
+                    return response.text();
+                }).then(data=>{
+                    if(data.code==201){
+                        alert(data.msg)
                     }
-                    else{
-                        this.props.history.push('/mSRL')
-                        //前往'./mySRL'
+                    else if(data.code==501){
+                        //输入为空
+                        alert('empty input')
+                    }else{
+                        sessionStorage.setItem('name',this.state.user_name)
+                        sessionStorage.setItem('UID',this.state.user_uid)
+                        // 3. 判断是否完成问卷
+                        if(this.state.finished){
+                            //前往'./ft'
+                            this.props.history.push('/ft')
+                        }
+                        else{
+                            this.props.history.push('/mSRL')
+                            //前往'./mySRL'
+                        }
                     }
-                }
-                else{
-                    alert('账号密码错误')
-                }
+                });
+                   //正确，将账户信息存储在session中
             }
             else{
                 alert('please check the contract')
@@ -61,6 +50,18 @@ export default class Home extends Component {
     }
     onCheck = ()=>{
         this.setState({checked:true});
+    }
+    handleNameChange=(a)=>{
+        console.log(a.target.value);
+        this.setState({user_name:a.target.value})
+    }
+    handleUIDChange=(a)=>{
+        console.log(a.target.value);
+        this.setState({user_uid:a.target.value});
+    }
+    handlePwdChange=(a)=>{
+        console.log(a.target.value);
+        this.setState({user_password:a.target.value});
     }
   render() {
     return <div className='home-main'>
@@ -75,77 +76,16 @@ export default class Home extends Component {
                 </div>
                 <div className='login'>
                     权限验证
-                <Form
-                    name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                    >
-                    <Form.Item
-                        name="UID"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'please input UID!',
-                        },
-                        ]}
-                    >
-                        <Input placeholder='please input UID'/>
-                    </Form.Item>
-                    <Form.Item
-                        name="name"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your name!',
-                        },
-                        ]}
-                    >
-                        <Input.name placeholder='please input name'/>
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                        ]}
-                    >
-                        <Input.name placeholder='please input password'/>
-                    </Form.Item>
-                    <Form.Item
-                        name="read"
-                        valuePropName="unchecked"
-                        wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                        }}
-                    >
-                        <Checkbox onChange={this.onCheck}>I have read  the &nbsp;
+                    <input placeholder='name' type="text" onChange={this.handleNameChange.bind(this)}></input>
+                    <input placeholder='UID' type="text" onChange={this.handleUIDChange.bind(this)}></input>
+                    <input placeholder='password' type="text" onChange={this.handlePwdChange.bind(this)}></input>
+                    <Checkbox onChange={this.onCheck}>I have read  the &nbsp;
                             <a href='https://docs.google.com/document/d/1oezoLjyqZlttaF8o7DQH-ChQto7K7DUAjFeCeofkSjo/edit?usp=sharing'>contract</a>
-                        </Checkbox>
-                    </Form.Item>
-                    <Form.Item
-                        wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                        }}
-                    >
-                        <Button type="primary" htmlType="submit" onClick={this.handleClick}>
-                            submit
-                        </Button>
-                    </Form.Item>
-                    </Form>
+                    </Checkbox>
+                    <Button type="primary" htmlType="submit" onClick={this.handleClick}>
+                        submit
+                    </Button>
+
                 </div>
         </div>
     </div>;
